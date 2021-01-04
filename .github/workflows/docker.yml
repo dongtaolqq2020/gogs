@@ -19,12 +19,18 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.CR_PAT }}
+      - uses: actions/cache@v2
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: ${{ runner.os }}-go-
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: dongtaolqq2020/gogs:latest
-          secrets: GIT_AUTH_TOKEN=${{ secrets.CR_PAT }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CR_PAT }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

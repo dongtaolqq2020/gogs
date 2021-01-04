@@ -25,5 +25,7 @@ jobs:
         with:
           push: true
           tags: dongtaolqq2020/gogs:latest
+          secrets:
+            GIT_AUTH_TOKEN: ${{ secrets.CR_PAT }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

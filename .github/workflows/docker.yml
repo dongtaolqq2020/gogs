@@ -30,7 +30,7 @@ jobs:
         with:
           push: true
           tags: dongtaolqq2020/gogs:latest
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.CR_PAT }}
+          github-token: ${{ secrets.CR_PAT }}
+          secrets: GIT_AUTH_TOKEN=${{ secrets.CR_PAT }}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
